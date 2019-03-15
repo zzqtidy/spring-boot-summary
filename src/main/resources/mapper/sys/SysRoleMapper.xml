@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzq.springbootdemo.dao.sys.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.zzq.springbootdemo.model.sys.SysRole">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name_en" jdbcType="VARCHAR" property="nameEn"/>
+        <result column="name_ch" jdbcType="VARCHAR" property="nameCh"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name_en, name_ch
+  </sql>
+    <select id="selectRolesByUserid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select sr.* from sys_role sr
+        join sys_user_role sur on sr.id = sur.roleid
+        where sur.id = #{userid}
+    </select>
+
+    <select id="selectRolesByNameEn" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+       select * from sys_role where name_en = #{name_en}
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from sys_role
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zzq.springbootdemo.model.sys.SysRole">
+    insert into sys_role (id, name_en, name_ch
+      )
+    values (#{id,jdbcType=INTEGER}, #{nameEn,jdbcType=VARCHAR}, #{nameCh,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.zzq.springbootdemo.model.sys.SysRole">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="nameEn != null">
+                name_en,
+            </if>
+            <if test="nameCh != null">
+                name_ch,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="nameEn != null">
+                #{nameEn,jdbcType=VARCHAR},
+            </if>
+            <if test="nameCh != null">
+                #{nameCh,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzq.springbootdemo.model.sys.SysRole">
+        update sys_role
+        <set>
+            <if test="nameEn != null">
+                name_en = #{nameEn,jdbcType=VARCHAR},
+            </if>
+            <if test="nameCh != null">
+                name_ch = #{nameCh,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzq.springbootdemo.model.sys.SysRole">
+    update sys_role
+    set name_en = #{nameEn,jdbcType=VARCHAR},
+      name_ch = #{nameCh,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
