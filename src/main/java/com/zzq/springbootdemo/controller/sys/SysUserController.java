@@ -8,10 +8,7 @@ import com.zzq.springbootdemo.service.sys.SysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -48,9 +45,9 @@ public class SysUserController {
         return sysUser;
     }
 
+    //注意，如果前台传过来的是一个jsonObject，Controller里面的参数必须写成@RequestBody
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public JsonResponse updateByPrimaryKeySelective(@PathVariable(value = "sys_user") String sysUserStr){
-        SysUser sysUser = new Gson().fromJson(sysUserStr,SysUser.class);
+    public JsonResponse updateByPrimaryKeySelective(@RequestBody SysUser sysUser){
         int count = sysUserService.updateByPrimaryKeySelective(sysUser);
         if (count>0){
             return new JsonResponse().success();
