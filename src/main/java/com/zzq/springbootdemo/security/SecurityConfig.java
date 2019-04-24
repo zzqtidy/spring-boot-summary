@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
@@ -45,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
+                //处理跨域请求中的Preflight请求
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 // 测试用资源，需要验证了的用户才能访问
                 .antMatchers("/sys_user/**").authenticated()
                 // ROLE_USER的权限才能访问资源/user/**

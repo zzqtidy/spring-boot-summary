@@ -1,7 +1,6 @@
 package com.zzq.springbootdemo.configurer;
 
 import com.zzq.springbootdemo.model.sys.SysUser;
-import com.zzq.springbootdemo.service.sys.SysBaseService;
 import com.zzq.springbootdemo.service.sys.SysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,9 @@ package com.zzq.springbootdemo.service.sys.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zzq.springbootdemo.dao.sys.SysPermissionMapper;
 import com.zzq.springbootdemo.dao.sys.SysUserMapper;
+import com.zzq.springbootdemo.model.sys.SysPermission;
 import com.zzq.springbootdemo.model.sys.SysUser;
 import com.zzq.springbootdemo.service.sys.SysUserService;
 import com.zzq.springbootdemo.security.JwtTokenUtil;
@@ -39,6 +41,9 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserMapper sysUserMapper;
 
+    @Autowired
+    private SysPermissionMapper sysPermissionMapper;
+
     @Override
     public int deleteByPrimaryKey(int id) {
         return 0;
@@ -61,12 +66,12 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public int updateByPrimaryKeySelective(SysUser record) {
-        return 0;
+        return sysUserMapper.updateByPrimaryKey(record);
     }
 
     @Override
     public int updateByPrimaryKey(SysUser record) {
-        return 0;
+        return sysUserMapper.updateByPrimaryKey(record);
     }
 
     /*
@@ -85,8 +90,13 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUser selectByUserName(String username) {
-        return sysUserMapper.selectByUserName(username);
+    public SysUser selectByUserNameAndPermissons(String username) {
+        SysUser sysUser =  sysUserMapper.selectByUserName(username);
+        //获取用户对应的权限
+        List<SysPermission> sysPermissionList = sysPermissionMapper.selectPermissionByUserId(sysUser.getId());
+        sysUser.setSysPermissionList(sysPermissionList);
+
+        return sysUser;
     }
 
     @Override

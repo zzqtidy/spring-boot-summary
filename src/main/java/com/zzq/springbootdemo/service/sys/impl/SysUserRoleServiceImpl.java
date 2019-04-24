@@ -2,11 +2,8 @@ package com.zzq.springbootdemo.service.sys.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zzq.springbootdemo.dao.sys.SysUserMapper;
 import com.zzq.springbootdemo.dao.sys.SysUserRoleMapper;
-import com.zzq.springbootdemo.model.sys.SysUser;
 import com.zzq.springbootdemo.model.sys.SysUserRole;
-import com.zzq.springbootdemo.service.sys.SysBaseService;
 import com.zzq.springbootdemo.service.sys.SysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +15,6 @@ import java.util.List;
  * Description:
  * User: TYLER
  * Date: 2019-03-01
- * Time: 17:17
  */
 @Service
 public class SysUserRoleServiceImpl implements SysUserRoleService {

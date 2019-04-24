@@ -36,7 +36,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserService.selectByUserName(username);
+        SysUser sysUser = sysUserService.selectByUserNameAndPermissons(username);
         List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByUserId(sysUser.getId());
         List<SysRole> roleList = new ArrayList<>();
         List<String> roles= new ArrayList<>();

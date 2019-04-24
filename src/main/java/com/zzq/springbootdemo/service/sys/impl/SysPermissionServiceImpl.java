@@ -44,6 +44,11 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
+    public List<SysPermission> selectByUserId(int userid) {
+        return sysPermissionMapper.selectPermissionByUserId(userid);
+    }
+
+    @Override
     public int updateByPrimaryKeySelective(SysPermission record) {
         return 0;
     }

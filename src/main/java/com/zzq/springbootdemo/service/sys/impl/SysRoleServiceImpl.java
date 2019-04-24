@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zzq.springbootdemo.dao.sys.SysRoleMapper;
 import com.zzq.springbootdemo.model.sys.SysRole;
-import com.zzq.springbootdemo.service.sys.SysBaseService;
 import com.zzq.springbootdemo.service.sys.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

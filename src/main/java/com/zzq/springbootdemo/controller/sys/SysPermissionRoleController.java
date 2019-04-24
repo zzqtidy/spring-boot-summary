@@ -25,14 +25,14 @@ public class SysPermissionRoleController {
     private SysPermissionRoleService sysPermissionRoleService;
 
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
     public SysPermissionRole selectByPrimaryKey(@PathVariable(value = "id") int id) {
         //注意@PathVariable(value = "id")是取出url地址中的{id},当然也可以不用写，不过按照规范，最好写上
         return sysPermissionRoleService.selectByPrimaryKey(id);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.POST)
     public PageInfo<SysPermissionRole> findAll() {
         return sysPermissionRoleService.findAll(1, 100);
     }

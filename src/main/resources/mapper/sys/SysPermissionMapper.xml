@@ -21,16 +21,16 @@
 
   <select id="selectPermissionByUserId"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select * from sys_permission sp
-    join sys_permission_roler spr on sp.id = spr.permissionid
-    join sys_user_role sur on sur.roleid = sp.roleid
-    where sur.userid = #{userid}
+    join sys_permission_role spr on sp.id = spr.permissionid
+    join sys_user_role sur on sur.roleid = spr.roleid
+    where sur.userid = #{userid} order by sp.parentids,sp.id
   </select>
 
   <select id="selectPermissionByRoleNameEn"  resultMap="BaseResultMap" parameterType="java.lang.String">
     select sp.* from sys_permission sp
     join sys_permission_role spr on sp.id = spr.permissionid
     join sys_role sr on sr.id = spr.roleid
-    where sr.name_en = #{name_en}
+    where sr.name_en = #{name_en} order by sp.parentids,sp.id
   </select>
 
   <select id="findAll" resultMap="BaseResultMap">

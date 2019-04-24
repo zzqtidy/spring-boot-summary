@@ -2,8 +2,6 @@ package com.zzq.springbootdemo.controller.sys;
 
 import com.github.pagehelper.PageInfo;
 import com.zzq.springbootdemo.model.sys.SysRole;
-import com.zzq.springbootdemo.model.sys.SysUser;
-import com.zzq.springbootdemo.service.sys.SysBaseService;
 import com.zzq.springbootdemo.service.sys.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,13 +24,13 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
     @ResponseBody
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    @RequestMapping(value = "/{id}",method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
     public SysRole selectByPrimaryKey(@PathVariable(value = "id") int id){
         //注意@PathVariable(value = "id")是取出url地址中的{id},当然也可以不用写，不过按照规范，最好写上
         return sysRoleService.selectByPrimaryKey(id);
     }
     @ResponseBody
-    @RequestMapping(value = "/all",method = RequestMethod.GET)
+    @RequestMapping(value = "/all",method = RequestMethod.POST)
     public PageInfo<SysRole> findAll(){
         return sysRoleService.findAll(1,100);
     }

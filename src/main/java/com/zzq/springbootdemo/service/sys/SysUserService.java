@@ -24,7 +24,7 @@ public interface SysUserService {
     int updateByPrimaryKey(SysUser record);
 
     PageInfo<SysUser> findAll(int pageNum, int pageSize);
-    SysUser selectByUserName(String username);
+    SysUser selectByUserNameAndPermissons(String username);
     /**
      * 用户登录
      *

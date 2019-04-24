@@ -112,6 +112,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 
             String token = JwtUtil.getToken(jwtUser.getUsername());
+            response.setHeader("Access-Control-Expose-Headers","token,username");//解决在使用CORS方式跨域时无法获取header中自定义的值（可以多个）
             response.setHeader("token", JwtUtil.TOKEN_PREFIX + token);
             jsonResult.success(null);
         } catch (Exception ex) {

@@ -3,6 +3,8 @@ package com.zzq.springbootdemo.service.sys;
 import com.github.pagehelper.PageInfo;
 import com.zzq.springbootdemo.model.sys.SysPermission;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * Description:
@@ -18,6 +20,8 @@ public interface SysPermissionService {
     int insertSelective(SysPermission record);
 
     SysPermission selectByPrimaryKey(int id);
+
+    List<SysPermission> selectByUserId(int userid);
 
     int updateByPrimaryKeySelective(SysPermission record);
 

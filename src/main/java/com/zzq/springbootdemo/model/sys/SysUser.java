@@ -1,5 +1,6 @@
 package com.zzq.springbootdemo.model.sys;
 
+import java.security.Permission;
 import java.util.List;
 
 public class SysUser {
@@ -14,8 +15,17 @@ public class SysUser {
     private String userface;
     private String remark;
 
-
     private List<String> roles;
+
+    private List<SysPermission> sysPermissionList;
+
+    public List<SysPermission> getSysPermissionList() {
+        return sysPermissionList;
+    }
+
+    public void setSysPermissionList(List<SysPermission> sysPermissionList) {
+        this.sysPermissionList = sysPermissionList;
+    }
 
     public List<String> getRoles() {
         return roles;

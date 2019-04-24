@@ -19,7 +19,8 @@ import java.util.Map;
 public class JwtUtil {
     final static String base64EncodedSecretKey = "SecretKey_zzq";//你的私钥
     final static long TOKEN_EXP = 1000 * 60 * 60;//过期时间,测试使用60分钟
-    final static long TOKEN_NBF = 1000 * 60 * 2;//Not Before,测试使用2分钟
+//    final static long TOKEN_NBF = 1000 * 60 * 2;//Not Before,测试使用2分钟(验证或登录成功之后多少时间无法进行验证，一般开发中尽量不要配置，要不然配置了之后登录成功之后该时间段无法成功请求)
+    final static long TOKEN_NBF = 0;//Not Before,立即
 
     public static final String TOKEN_HEADER = "Authorization";
     public static final String TOKEN_PREFIX = "Bearer ";
