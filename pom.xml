@@ -107,6 +107,11 @@
             <version>2.8.5</version>
         </dependency>
 
+        <!--quartz-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
         <!-- 单元测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
