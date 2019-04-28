@@ -125,7 +125,11 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
-
+        <!--不想每次都写private  final Logger logger = LoggerFactory.getLogger(XXX.class); 可以用注解@Slf4j-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
 
     </dependencies>
 
