@@ -3,6 +3,7 @@ package com.zzq.springbootdemo;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.zzq.springbootdemo.dao.sys.SysPermissionMapper;
+import com.zzq.springbootdemo.model.quartz.JobEntity;
 import com.zzq.springbootdemo.model.sys.SysPermission;
 import com.zzq.springbootdemo.service.sys.SysPermissionService;
 import org.junit.Test;
@@ -29,9 +30,16 @@ public class SpringBootDemoApplicationTests {
 
     @Test
     public void contextLoads() {
-        List<SysPermission> sysPermissionList = sysPermissionMapper.selectPermissionByRoleNameEn("ROLE_manager");
-
-        logger.info(new Gson().toJson(sysPermissionList));
+//        List<SysPermission> sysPermissionList = sysPermissionMapper.selectPermissionByRoleNameEn("ROLE_manager");
+//        logger.info(new Gson().toJson(sysPermissionList));
+        JobEntity jobEntity = new JobEntity();
+        jobEntity.setId(1);
+        jobEntity.setName("test_job");
+        jobEntity.setGroup("test_job");
+        jobEntity.setClassName("com.zzq.springbootdemo.job.TestJob");
+        jobEntity.setDescription("测试");
+        jobEntity.setCron("0/5 * * * * ?");
+        logger.info(new Gson().toJson(jobEntity));
     }
 
     private Map<String,Object> parseFromSysPermission(List<SysPermission> sysPermissionList){

@@ -4,7 +4,7 @@ import com.zzq.springbootdemo.dao.quartz.JobEntityMapper;
 import com.zzq.springbootdemo.model.quartz.JobEntity;
 import com.zzq.springbootdemo.service.quartz.ITaskService;
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.Scheduler;
+import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +45,8 @@ public class TaskServiceImpl implements ITaskService {
     @Override
     public List<JobEntity> findAllTask() {
         log.info(String.valueOf(scheduler.hashCode()));
+        CronTrigger cronTrigger = (CronTrigger) TriggerBuilder.newTrigger();
+
         return jobEntityMapper.findAllTask();
     }
 
@@ -60,7 +62,7 @@ public class TaskServiceImpl implements ITaskService {
 
     @Override
     public Boolean deleteTask(JobEntity jobEntity) {
-        return null;
+        return jobEntityMapper.deleteByPrimaryKey(jobEntity.getId())>0;
     }
 
     @Override

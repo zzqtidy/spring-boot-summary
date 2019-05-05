@@ -9,6 +9,8 @@ public class JobEntity {
 
     private String cron;
 
+    private String className;
+
     private String parameter;
 
     private String description;
@@ -49,6 +51,14 @@ public class JobEntity {
 
     public void setCron(String cron) {
         this.cron = cron == null ? null : cron.trim();
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public String getParameter() {
