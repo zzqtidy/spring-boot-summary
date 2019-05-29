@@ -2,6 +2,14 @@ server:
   port: 8081
 
 spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: testhost
+    publisher-confirms: true  #  消息发送到交换机确认机制,是否确认回调
+    publisher-returns: true
   security:
     #默认的登陆用户名和密码
     user:
