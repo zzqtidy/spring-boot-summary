@@ -1,5 +1,7 @@
-package com.zzq.springbootdemo.security;
+package com.zzq.springbootdemo.configurer;
 
+import com.zzq.springbootdemo.filter.JwtAuthenticationFilter;
+import com.zzq.springbootdemo.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +13,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
+        http.cors().and()
+                .csrf().disable()
+                .authorizeRequests()
                 //处理跨域请求中的Preflight请求
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 // 测试用资源，需要验证了的用户才能访问
@@ -59,15 +66,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-
         http.addFilter(new JwtAuthenticationFilter(authenticationManager()));  //登陆过滤器
         http.addFilter(new JwtAuthorizationFilter(authenticationManager()));//验证成功当然就是进行鉴权
     }
 
+    //cors的配置规则
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080","http://127.0.0.1:8080"));//允许哪些访问源
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT","PATCH","DELETE"));//跨域请求方式
+        // 如果所有的属性不全部配置，一定要执行该方法
+        configuration.applyPermitDefaultValues();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); //跨域允许请求的路径
         return source;
     }
 

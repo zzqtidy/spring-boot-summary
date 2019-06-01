@@ -1,12 +1,11 @@
-package com.zzq.springbootdemo.security;
+package com.zzq.springbootdemo.filter;
 
 import com.google.gson.Gson;
 import com.zzq.springbootdemo.dao.sys.SysPermissionMapper;
 import com.zzq.springbootdemo.dto.JsonResult;
-import com.zzq.springbootdemo.model.sys.SysPermission;
 import com.zzq.springbootdemo.model.sys.SysUser;
-import com.zzq.springbootdemo.util.JwtUtil;
-import io.jsonwebtoken.Claims;
+import com.zzq.springbootdemo.util.jwt.JwtUser;
+import com.zzq.springbootdemo.util.jwt.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

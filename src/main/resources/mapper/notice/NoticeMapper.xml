@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzq.springbootdemo.dao.notice.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.zzq.springbootdemo.model.notice.Notice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="visits" property="visits" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="createdt" property="createdt" jdbcType="TIMESTAMP" />
+    <result column="createid" property="createid" jdbcType="VARCHAR" />
+    <result column="updatedt" property="updatedt" jdbcType="TIMESTAMP" />
+    <result column="updateid" property="updateid" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zzq.springbootdemo.model.notice.Notice" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, visits, type, createdt, createid, updatedt, updateid, version
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from notice
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzq.springbootdemo.model.notice.Notice" >
+    insert into notice (id, title, visits, 
+      type, createdt, createid, 
+      updatedt, updateid, version, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{visits,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{createdt,jdbcType=TIMESTAMP}, #{createid,jdbcType=VARCHAR}, 
+      #{updatedt,jdbcType=TIMESTAMP}, #{updateid,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzq.springbootdemo.model.notice.Notice" >
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="visits != null" >
+        visits,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createdt != null" >
+        createdt,
+      </if>
+      <if test="createid != null" >
+        createid,
+      </if>
+      <if test="updatedt != null" >
+        updatedt,
+      </if>
+      <if test="updateid != null" >
+        updateid,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="visits != null" >
+        #{visits,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createdt != null" >
+        #{createdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createid != null" >
+        #{createid,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null" >
+        #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateid != null" >
+        #{updateid,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzq.springbootdemo.model.notice.Notice" >
+    update notice
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="visits != null" >
+        visits = #{visits,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createdt != null" >
+        createdt = #{createdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createid != null" >
+        createid = #{createid,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null" >
+        updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateid != null" >
+        updateid = #{updateid,jdbcType=VARCHAR},
+      </if>
+      version = version+1,
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zzq.springbootdemo.model.notice.Notice" >
+    update notice
+    set title = #{title,jdbcType=VARCHAR},
+      visits = #{visits,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      createdt = #{createdt,jdbcType=TIMESTAMP},
+      createid = #{createid,jdbcType=VARCHAR},
+      updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      updateid = #{updateid,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzq.springbootdemo.model.notice.Notice" >
+    update notice
+    set title = #{title,jdbcType=VARCHAR},
+      visits = #{visits,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      createdt = #{createdt,jdbcType=TIMESTAMP},
+      createid = #{createid,jdbcType=VARCHAR},
+      updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      updateid = #{updateid,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

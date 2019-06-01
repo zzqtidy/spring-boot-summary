@@ -82,7 +82,7 @@ public class AnnotationMethodLogAspect {
     @AfterReturning(pointcut = "pointCutExpression()", returning = "result")
     public void getAfterReturn(Object result) {
         log.info("本次接口耗时={}ms", endTime);
-        log.info("获取执行结束之后的值："+result.toString());
+        log.info("获取执行结束之后的值："+result);
     }
     
 }

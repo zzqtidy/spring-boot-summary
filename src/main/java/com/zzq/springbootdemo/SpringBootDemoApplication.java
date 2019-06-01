@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -15,6 +16,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+@EnableAspectJAutoProxy
 @EnableTransactionManagement // 开启注解事务管理，等同于xml配置文件中的 <tx:annotation-driven />
 /*如果Application类所在的包为：com.demo.module，则只会扫描com.demo.module包及其所有子包，如果service或dao所在包不在com.demo.module及其子包下，则不会被扫描！*/
 @MapperScan("com.zzq.springbootdemo.dao")//加上你项目的dao或service所在文件位置即可

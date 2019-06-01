@@ -21,13 +21,18 @@ public class RabbitExchangeConfig {
     public RabbitExchangeConfig() {
     }
 
+    /*
+    多播（广播）
+     */
     @Bean
     FanoutExchange contractFanoutExchange() {
         FanoutExchange fanoutExchange = new FanoutExchange("com.exchange.fanout");
         this.rabbitAdmin.declareExchange(fanoutExchange);
         return fanoutExchange;
     }
-
+    /*
+    主题
+     */
     @Bean
     TopicExchange contractTopicExchangeDurable() {
         TopicExchange contractTopicExchange = new TopicExchange("com.exchange.topic");
@@ -35,6 +40,9 @@ public class RabbitExchangeConfig {
         return contractTopicExchange;
     }
 
+    /*
+    点对点
+     */
     @Bean
     DirectExchange contractDirectExchange() {
         DirectExchange contractDirectExchange = new DirectExchange("com.exchange.direct");

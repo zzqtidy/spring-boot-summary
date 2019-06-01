@@ -1,4 +1,4 @@
-package com.zzq.springbootdemo.security;
+package com.zzq.springbootdemo.controller.jwt;
 
 import com.zzq.springbootdemo.model.sys.SysUser;
 import com.zzq.springbootdemo.service.sys.SysUserService;

@@ -1,6 +1,7 @@
-package com.zzq.springbootdemo.security;
+package com.zzq.springbootdemo.filter;
 
-import com.zzq.springbootdemo.util.JwtUtil;
+import com.zzq.springbootdemo.util.jwt.JwtUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,7 +47,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     // 这里从token中获取用户信息并新建一个token
     private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) {
         String token = tokenHeader.replace(JwtUtil.TOKEN_PREFIX, "");
-        String username = JwtUtil.getClaimsFromToken(token).getSubject();
+        Claims claimsFromToken = JwtUtil.getClaimsFromToken(token);
+        if(claimsFromToken==null)
+            return null;
+        String username = claimsFromToken.getSubject();
         if (username != null) {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
             return usernamePasswordAuthenticationToken;

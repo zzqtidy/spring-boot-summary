@@ -1,9 +1,9 @@
-package com.zzq.springbootdemo.util;
+package com.zzq.springbootdemo.util.jwt;
 
-import com.zzq.springbootdemo.security.JwtUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
@@ -16,6 +16,7 @@ import java.util.Map;
  * User: TYLER
  * Date: 2019-03-05
  */
+@Slf4j
 public class JwtUtil {
     final static String base64EncodedSecretKey = "SecretKey_zzq";//你的私钥
     final static long TOKEN_EXP = 1000 * 60 * 60;//过期时间,测试使用60分钟
@@ -69,14 +70,14 @@ public class JwtUtil {
     }
     /*JWT的解析*/
     public static Claims getClaimsFromToken(String token) {
-        Claims claims;
+        Claims claims = null;
         try {
             claims = Jwts.parser()
                     .setSigningKey(base64EncodedSecretKey)
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            claims = null;
+            log.error("jwt验证Token失败！");
         }
         return claims;
     }
@@ -86,7 +87,7 @@ public class JwtUtil {
      * @param token 令牌
      * @return 是否过期
      */
-    public Boolean isTokenExpired(String token) {
+    public static Boolean isTokenExpired(String token) {
         try {
             Claims claims = getClaimsFromToken(token);
             Date expiration = claims.getExpiration();
@@ -101,7 +102,7 @@ public class JwtUtil {
      * @param token 令牌
      * @return 用户名
      */
-    public String getUsernameFromToken(String token) {
+    public static String getUsernameFromToken(String token) {
         String username;
         try {
             Claims claims = getClaimsFromToken(token);
@@ -117,7 +118,7 @@ public class JwtUtil {
      * @param token 原令牌
      * @return 新令牌
      */
-    public String refreshToken(String token) {
+    public static String refreshToken(String token) {
         String refreshedToken;
         try {
             Claims claims = getClaimsFromToken(token);
@@ -136,7 +137,7 @@ public class JwtUtil {
      * @param userDetails 用户
      * @return 是否有效
      */
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public static Boolean validateToken(String token, UserDetails userDetails) {
         JwtUser user = (JwtUser) userDetails;
         String username = getUsernameFromToken(token);
         return (username.equals(user.getUsername()) && !isTokenExpired(token));

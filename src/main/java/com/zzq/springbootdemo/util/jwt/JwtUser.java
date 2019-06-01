@@ -1,4 +1,4 @@
-package com.zzq.springbootdemo.security;
+package com.zzq.springbootdemo.util.jwt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zzq.springbootdemo.model.sys.SysUser;

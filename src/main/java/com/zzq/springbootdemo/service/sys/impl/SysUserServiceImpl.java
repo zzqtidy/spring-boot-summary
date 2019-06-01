@@ -7,14 +7,8 @@ import com.zzq.springbootdemo.dao.sys.SysUserMapper;
 import com.zzq.springbootdemo.model.sys.SysPermission;
 import com.zzq.springbootdemo.model.sys.SysUser;
 import com.zzq.springbootdemo.service.sys.SysUserService;
-import com.zzq.springbootdemo.security.JwtTokenUtil;
+import com.zzq.springbootdemo.util.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +24,6 @@ import java.util.List;
  */
 @Service
 public class SysUserServiceImpl implements SysUserService {
-//    @Autowired
-    private AuthenticationManager authenticationManager;
-//    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     private SysUserMapper sysUserMapper;
@@ -99,15 +86,6 @@ public class SysUserServiceImpl implements SysUserService {
         return sysUser;
     }
 
-    @Override
-    public String login(String username, String password) {
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authentication = authenticationManager.authenticate(upToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        return jwtTokenUtil.generateToken(userDetails);
-//        return null;
-    }
 
     @Override
     public String register(SysUser sysUser) {
@@ -129,8 +107,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public String refreshToken(String oldToken) {
         String token = oldToken.substring("Bearer ".length());
-        if (!jwtTokenUtil.isTokenExpired(token)) {
-            return jwtTokenUtil.refreshToken(token);
+        if (!JwtUtil.isTokenExpired(token)) {
+            return JwtUtil.refreshToken(token);
         }
         return "error";
     }

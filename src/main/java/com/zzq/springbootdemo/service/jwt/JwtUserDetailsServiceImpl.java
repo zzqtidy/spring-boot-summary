@@ -1,4 +1,4 @@
-package com.zzq.springbootdemo.security;
+package com.zzq.springbootdemo.service.jwt;
 
 import com.zzq.springbootdemo.dao.sys.SysRoleMapper;
 import com.zzq.springbootdemo.dao.sys.SysUserRoleMapper;
@@ -6,8 +6,8 @@ import com.zzq.springbootdemo.model.sys.SysRole;
 import com.zzq.springbootdemo.model.sys.SysUser;
 import com.zzq.springbootdemo.model.sys.SysUserRole;
 import com.zzq.springbootdemo.service.sys.SysUserService;
+import com.zzq.springbootdemo.util.jwt.JwtUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.

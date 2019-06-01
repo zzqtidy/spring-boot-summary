@@ -25,14 +25,6 @@ public interface SysUserService {
 
     PageInfo<SysUser> findAll(int pageNum, int pageSize);
     SysUser selectByUserNameAndPermissons(String username);
-    /**
-     * 用户登录
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @return 操作结果
-     */
-    String login(String username, String password);
 
     /**
      * 用户注册
