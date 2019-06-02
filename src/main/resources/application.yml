@@ -4,7 +4,8 @@ server:
 spring:
   profiles:
     active: dev #多文件支持，开发用dev，对应application-dev.yml中配置，正式的时候配置成prod，对应application-prod.yml中配置
-
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss #处理返回给前台的日期格式
 #配置mymybatis相关信息
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
