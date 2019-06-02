@@ -1,0 +1,64 @@
+#测试机配置，可以将端口和数据库、rabbitmq、邮箱配置放在这里
+server:
+  port: 8081
+spring:
+  datasource:
+    name: spring_boot_demo_db
+    type: com.alibaba.druid.pool.DruidDataSource
+    #数据库配置（测试）
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_boot_demo?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    #druid相关配置
+    druid:
+      #监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall
+      driver-class-name: com.mysql.jdbc.Driver
+      #基本属性
+      url: jdbc:mysql://localhost:3306/spring_boot_demo?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+      #配置初始化连接池大小/最小/最大
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      #获取连接等待超时时间
+      max-wait: 60000
+      #间隔多久进行一次检测，检测需要关闭的空闲连接(ms)
+      time-between-eviction-runs-millis: 60000
+      #一个连接在池中最小生存的时间(ms)
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+  mail:
+    host: smtp.qq.com
+    username: 960039871@qq.com
+    password: bndivvkyfmzobbhj #授权码
+    properties:
+      mail:
+        smtp:
+          # 设置是否需要认证，如果为true,那么用户名和密码就必须的，
+          # 如果设置false，可以不设置用户名和密码，当然也得看你的对接的平台是否支持无密码进行访问的。
+          auth: true
+          starttls:
+            enable: false
+            required: false
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: testhost
+    publisher-confirms: true  #  消息发送到交换机确认机制,是否确认回调
+    publisher-returns: true
+  security:
+    #默认的登陆用户名和密码
+    user:
+      name: admin
+      password: admin
